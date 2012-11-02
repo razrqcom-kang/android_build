@@ -44,9 +44,10 @@ ifeq (0,$(shell expr $$(echo $(MAKE_VERSION) | sed "s/[^0-9\.].*//") = 3.81))
 ifeq (0,$(shell expr $$(echo $(MAKE_VERSION) | sed "s/[^0-9\.].*//") = 3.82))
 $(warning ********************************************************************************)
 $(warning *  You are using version $(MAKE_VERSION) of make.)
-$(warning *  Android is tested to build with versions 3.81 and 3.82.)
+$(warning *  Android can only be built by versions 3.81 and 3.82.)
 $(warning *  see https://source.android.com/source/download.html)
 $(warning ********************************************************************************)
+$(error stopping)
 endif
 endif
 endif
@@ -122,7 +123,7 @@ endif
 
 
 # Check for the correct version of java
-java_version := $(shell java -version 2>&1 | head -n 1 | grep '^java .*[ "]1\.[67][\. "$$]')
+java_version := $(shell java -version 2>&1 | head -n 1 | grep '^java .*[ "]1\.6[\. "$$]')
 ifneq ($(shell java -version 2>&1 | grep -i openjdk),)
 $(warning ************************************************************)
 $(warning AOSP errors out when using OpenJDK, saying you need to use)
@@ -135,26 +136,27 @@ $(warning ************************************************************)
 endif
 ifeq ($(strip $(java_version)),)
 $(info ************************************************************)
-$(info You are attempting to build with an unsupported version)
-$(info of java.)
+$(info You are attempting to build with the unsupported version of java.)
 $(info $(space))
 $(info Your version is: $(shell java -version 2>&1 | head -n 1).)
-$(info The correct version is: Java SE 1.6 or 1.7.)
+$(info The AOSP supported version is: Java SE 1.6.)
 $(info $(space))
-$(info Please follow the machine setup instructions at)
+$(info Linaro builds with java version "1.7.0_09" seems to work fine though.)
+$(info AOSP supported machine setup instructions are at)
 $(info $(space)$(space)$(space)$(space)https://source.android.com/source/download.html)
 $(info ************************************************************)
+#$(error stop)
 endif
 
 # Check for the correct version of javac
-javac_version := $(shell javac -version 2>&1 | head -n 1 | grep '[ "]1\.[67][\. "$$]')
+javac_version := $(shell javac -version 2>&1 | head -n 1 | grep '[ "]1\.6[\. "$$]')
 ifeq ($(strip $(javac_version)),)
 $(info ************************************************************)
 $(info You are attempting to build with the incorrect version)
 $(info of javac.)
 $(info $(space))
 $(info Your version is: $(shell javac -version 2>&1 | head -n 1).)
-$(info The correct version is: 1.6 or 1.7.)
+$(info The correct version is: 1.6.)
 $(info $(space))
 $(info Please follow the machine setup instructions at)
 $(info $(space)$(space)$(space)$(space)https://source.android.com/source/download.html)
@@ -305,7 +307,7 @@ ifneq (,$(user_variant))
     ADDITIONAL_BUILD_PROPERTIES += dalvik.vm.lockprof.threshold=500
   else
     # Disable debugging in plain user builds.
-    enable_target_debugging :=
+    enable_target_debugging := true
   endif
 
   # Turn on Dalvik preoptimization for user builds, but only if not
@@ -314,7 +316,7 @@ ifneq (,$(user_variant))
   ifneq (true,$(DISABLE_DEXPREOPT))
     ifeq ($(user_variant),user)
       ifeq ($(HOST_OS),linux)
-        WITH_DEXPREOPT := true
+        WITH_DEXPREOPT := false
       endif
     endif
   endif
@@ -345,6 +347,7 @@ endif # !enable_target_debugging
 
 ifeq ($(TARGET_BUILD_VARIANT),eng)
 tags_to_install := debug eng
+WITH_DEXPREOPT := false
 ifneq ($(filter ro.setupwizard.mode=ENABLED, $(call collapse-pairs, $(ADDITIONAL_BUILD_PROPERTIES))),)
   # Don't require the setup wizard on eng builds
   ADDITIONAL_BUILD_PROPERTIES := $(filter-out ro.setupwizard.mode=%,\
@@ -746,6 +749,7 @@ $(ALL_C_CPP_ETC_OBJECTS): | all_copied_headers
 .PHONY: files
 files: prebuilt \
         $(modules_to_install) \
+        $(modules_to_check) \
         $(INSTALLED_ANDROID_INFO_TXT_TARGET)
 
 # -------------------------------------------------------------------
