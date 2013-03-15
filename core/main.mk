@@ -309,6 +309,9 @@ ifneq (,$(user_variant))
     ifeq ($(user_variant),user)
       # Pick up some extra useful tools
       tags_to_install += debug
+
+      # Enable Dalvik lock contention logging for userdebug builds.
+      ADDITIONAL_BUILD_PROPERTIES += dalvik.vm.lockprof.threshold=500
     endif
     # Enable debugging in plain user builds.
     enable_target_debugging := true
