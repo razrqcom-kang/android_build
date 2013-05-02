@@ -11,16 +11,16 @@ endif
 
 # Add the ARM toolchain bin dir if it actually exists
 ifeq ($(TARGET_ARCH),arm)
-  ifneq ($(USE_SABERMOD_ANDROIDEABI_48),true)
-    ifneq ($(wildcard $(PWD)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.7/bin),)
-        # this should be copied to HOST_OUT_EXECUTABLES instead
-        ABP:=$(ABP):$(PWD)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.7/bin
-    endif
-  endif
-  ifeq ($(USE_SABERMOD_ANDROIDEABI_48),true)
+  ifneq ($(USE_SABERMOD_ANDROIDEABI_49),true)
     ifneq ($(wildcard $(PWD)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.8/bin),)
         # this should be copied to HOST_OUT_EXECUTABLES instead
         ABP:=$(ABP):$(PWD)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.8/bin
+    endif
+  endif
+  ifeq ($(USE_SABERMOD_ANDROIDEABI_49),true)
+    ifneq ($(wildcard $(PWD)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.9/bin),)
+        # this should be copied to HOST_OUT_EXECUTABLES instead
+        ABP:=$(ABP):$(PWD)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.9/bin
     endif
   endif
 else ifeq ($(TARGET_ARCH),x86)
