@@ -24,7 +24,7 @@
 ifeq ($(strip $(TARGET_TOOLS_PREFIX)),)
   LINARO_COMPILERCHECK_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.9
   ifneq ($(USE_SABERMOD_ANDROIDEABI_49),true)
-    LINARO_COMPILERCHECK_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.8
+    LINARO_COMPILERCHECK_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.7
   endif
 LINARO_COMPILERCHECK_CC := $(LINARO_COMPILERCHECK_ROOT)/bin/arm-linux-androideabi-gcc$(HOST_EXECUTABLE_SUFFIX)
 else

@@ -45,7 +45,7 @@ include $(TARGET_ARCH_SPECIFIC_MAKEFILE)
 ifeq ($(strip $(TARGET_TOOLS_PREFIX)),)
   TARGET_TOOLCHAIN_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.9
   ifneq ($(USE_SABERMOD_ANDROIDEABI_49),true)
-    TARGET_TOOLCHAIN_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.8
+    TARGET_TOOLCHAIN_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.7
   endif
 TARGET_TOOLS_PREFIX := $(TARGET_TOOLCHAIN_ROOT)/bin/arm-linux-androideabi-
 endif
