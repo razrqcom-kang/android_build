@@ -50,7 +50,7 @@ $(combo_target)GLOBAL_CFLAGS := -fno-exceptions -Wno-multichar
 ifeq ($(USE_MORE_OPT_FLAGS),yes)
     $(combo_target)RELEASE_CFLAGS := -O3 -g -Wstrict-aliasing=3 -Werror=strict-aliasing
 else
-    $(combo_target)RELEASE_CFLAGS := -O2 -fgcse-after-reload -fipa-cp-clone -fpredictive-commoning -fsched-spec-load -funswitch-loops -fvect-cost-model -g -Wstrict-aliasing=3 -Werror=strict-aliasing
+    $(combo_target)RELEASE_CFLAGS := -O2 -g -Wstrict-aliasing=3 -Werror=strict-aliasing
 endif
 # Turn off strict-aliasing if we're building an AOSP variant without the
 # patchset...

@@ -79,16 +79,11 @@ ifeq ($(USE_MORE_OPT_FLAGS),yes)
                             -fno-tree-vectorize
 else
     TARGET_arm_CFLAGS :=    -O2 \
-                            -fgcse-after-reload \
-                            -fipa-cp-clone \
-                            -fpredictive-commoning \
-                            -fsched-spec-load \
-                            -funswitch-loops \
-                            -fvect-cost-model \
                             -fomit-frame-pointer \
                             -fstrict-aliasing \
                             -Wstrict-aliasing=3 \
-                            -Werror=strict-aliasing
+                            -Werror=strict-aliasing \
+                            -funswitch-loops
 endif
 
 # Modules can choose to compile some source as thumb. As
@@ -106,12 +101,6 @@ ifeq ($(ARCH_ARM_HAVE_THUMB_SUPPORT),true)
     else
         TARGET_thumb_CFLAGS :=  -mthumb \
                                 -Os \
-                                -fgcse-after-reload \
-                                -fipa-cp-clone \
-                                -fpredictive-commoning \
-                                -fsched-spec-load \
-                                -funswitch-loops \
-                                -fvect-cost-model \
                                 -fomit-frame-pointer \
                                 -fstrict-aliasing \
                                 -Wstrict-aliasing=3 \
