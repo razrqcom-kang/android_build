@@ -94,6 +94,7 @@ ifeq ($(ARCH_ARM_HAVE_THUMB_SUPPORT),true)
     ifeq ($(USE_MORE_OPT_FLAGS),yes)
         TARGET_thumb_CFLAGS :=  -mthumb \
                                 -O3 \
+                                -fno-tree-vectorize \
                                 -fomit-frame-pointer \
                                 -fstrict-aliasing \
                                 -Wstrict-aliasing=3 \
