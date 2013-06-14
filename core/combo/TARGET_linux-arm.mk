@@ -71,12 +71,13 @@ TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
 
 ifeq ($(USE_MORE_OPT_FLAGS),yes)
     TARGET_arm_CFLAGS :=    -O3 \
+                            -fno-tree-vectorize \
+                            -fno-inline-functions \
                             -fomit-frame-pointer \
                             -fstrict-aliasing \
                             -Wstrict-aliasing=3 \
                             -Werror=strict-aliasing \
-                            -funswitch-loops \
-                            -fno-tree-vectorize
+                            -funswitch-loops
 else
     TARGET_arm_CFLAGS :=    -O2 \
                             -fomit-frame-pointer \
@@ -95,6 +96,7 @@ ifeq ($(ARCH_ARM_HAVE_THUMB_SUPPORT),true)
         TARGET_thumb_CFLAGS :=  -mthumb \
                                 -O3 \
                                 -fno-tree-vectorize \
+                                -fno-inline-functions \
                                 -fomit-frame-pointer \
                                 -fstrict-aliasing \
                                 -Wstrict-aliasing=3 \
