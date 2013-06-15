@@ -76,8 +76,7 @@ ifeq ($(USE_MORE_OPT_FLAGS),yes)
                             -fomit-frame-pointer \
                             -fstrict-aliasing \
                             -Wstrict-aliasing=3 \
-                            -Werror=strict-aliasing \
-                            -funswitch-loops
+                            -Werror=strict-aliasing
 else
     TARGET_arm_CFLAGS :=    -O2 \
                             -fomit-frame-pointer \
@@ -97,6 +96,7 @@ ifeq ($(ARCH_ARM_HAVE_THUMB_SUPPORT),true)
                                 -O3 \
                                 -fno-tree-vectorize \
                                 -fno-inline-functions \
+                                -fno-unswitch-loops \
                                 -fomit-frame-pointer \
                                 -fstrict-aliasing \
                                 -Wstrict-aliasing=3 \
