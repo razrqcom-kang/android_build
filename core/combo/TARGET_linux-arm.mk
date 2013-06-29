@@ -69,7 +69,7 @@ endif
 
 TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
 
-ifeq ($(USE_MORE_OPT_FLAGS),yes)
+ifeq ($(TARGET_GCC_USE_O3),true)
     TARGET_arm_CFLAGS :=    -O3 \
                             -fno-tree-vectorize \
                             -fno-inline-functions \
